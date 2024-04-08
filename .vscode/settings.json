@@ -3,5 +3,8 @@
     "${env:GENDEV}/sgdk/res",
     "res",
     "inc"
-]
+],
+"files.associations": {
+    "cstdlib": "c"
+}
 }
