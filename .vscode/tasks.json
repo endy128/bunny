@@ -1,0 +1,19 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build MegaDrive Game & Run",
+      "type": "shell",
+      "linux": {
+        "command": "make -f /opt/gendev/sgdk/mkfiles/Makefile.rom clean all && blastem ./out/rom.bin"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ]
+}
