@@ -88,7 +88,7 @@ void shootBullet()
     }
 }
 
-static bulletOffScreen(entity *b)
+static void bulletOffScreen(entity *b)
 {
     if ((b->y + b->h < 0) || (b->y + b->h > MAX_SCREEN_HEIGHT))
     {

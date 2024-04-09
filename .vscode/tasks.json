@@ -7,7 +7,7 @@
       "label": "Build MegaDrive Game & Run",
       "type": "shell",
       "linux": {
-        "command": "make -f /opt/gendev/sgdk/mkfiles/Makefile.rom clean all && blastem ./out/rom.bin"
+        "command": "make -f ${env:GENDEV}/sgdk/mkfiles/Makefile.rom clean all && blastem ./out/rom.bin"
       },
       "group": "build",
       "presentation": {
