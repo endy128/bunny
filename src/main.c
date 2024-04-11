@@ -29,7 +29,7 @@ typedef struct Entity
     char name[6];
 } entity;
 
-entity player = {110, 0, 16, 16, 0, 0, 0, NULL, "PLAYER"};
+entity player = {150, 80, 16, 16, 0, 0, 0, NULL, "PLAYER"};
 
 entity bullets[MAX_BULLETS];
 u16 bulletsOnScreen = 0;
@@ -61,6 +61,36 @@ void setUpBullets()
     }
 }
 
+void setBulletOrientation(entity *b)
+{
+    if (b->vely > 0) // down
+    {
+        SPR_setAnim(b->sprite, 1);
+        SPR_setVFlip(b->sprite, FALSE);
+    }
+    else if (b->vely < 0) // up
+    {
+        SPR_setAnim(b->sprite, 1);
+        SPR_setVFlip(b->sprite, TRUE);
+    }
+
+    if (b->velx > 0)
+    {
+        SPR_setAnim(b->sprite, 0);
+        SPR_setHFlip(b->sprite, FALSE);
+    }
+    else if (b->velx < 0)
+    {
+        SPR_setAnim(b->sprite, 0);
+        SPR_setHFlip(b->sprite, TRUE);
+    }
+    // else
+    // {
+    //     SPR_setHFlip(b->sprite, FALSE);
+    //     SPR_setVFlip(b->sprite, FALSE);
+    // }
+}
+
 void shootBullet()
 {
     if (bulletsOnScreen < MAX_BULLETS)
@@ -79,6 +109,8 @@ void shootBullet()
                 reviveEntity(b);
                 b->vely = player.vely * BULLET_SPEED;
                 b->velx = player.velx * BULLET_SPEED;
+
+                setBulletOrientation(b);
 
                 SPR_setPosition(b->sprite, b->x, b->y);
                 bulletsOnScreen++;
@@ -117,15 +149,6 @@ static void positionBullet()
             b->y += b->vely;
             b->x += b->velx;
             bulletOffScreen(b);
-            // if (b->y + b->h < 0) // ONLY CHECKS TOP OF SCREEN
-            // {
-            //     killEntity(b);
-            //     bulletsOnScreen--;
-            // }
-            // else
-            // {
-            //     SPR_setPosition(b->sprite, b->x, b->y);
-            // }
         }
     }
 }
@@ -237,7 +260,7 @@ static void joyEvent(u16 joy, u16 changed, u16 state)
 
 int main()
 {
-    VDP_drawText("Hello Neil!!", 14, 27);
+    VDP_drawText("Shoot Carrots!!", 14, 27);
 
     JOY_setEventHandler(joyEvent);
 
